@@ -1,11 +1,13 @@
 #include <iostream>
 #include <fstream>
 #include <vector>
+#include <string>
 #include <filesystem>
 #include <cstdint>
 #include <cstring>
 #include <iomanip>
 #include <array>
+#include <cstdlib>
 
 namespace fs = std::filesystem;
 
