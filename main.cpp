@@ -130,9 +130,21 @@ bool pack(const fs::path& input_dir, const fs::path& output) {
 }
 
 int main(int argc, char* argv[]) {
+    if (argc == 2) {
+        const std::string arg = argv[1];
+        if (arg == "--version") {
+            std::cout << RDBCPP_VERSION << "\n";
+            return EXIT_SUCCESS;
+        }
+        if (arg == "-h" || arg == "--help") {
+            print_usage();
+            return EXIT_SUCCESS;
+        }
+    }
+
     if (argc != 4) {
         print_usage();
-        return 1;
+        return EXIT_FAILURE;
     }
 
     const std::string command = argv[1];
