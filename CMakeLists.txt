@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.5...4.1.2)
-project(rdbcpp LANGUAGES CXX VERSION 1.0.1)
+project(rdbcpp LANGUAGES CXX VERSION 1.0.2)
 
 if(MSVC)
     # force static msvc runtime linkage (/mt for release, /mtd for debug)
