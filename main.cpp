@@ -13,7 +13,7 @@ namespace fs = std::filesystem;
 
 // tencent rdb header magic: 531E98204F8542F0
 constexpr std::array<uint8_t, 16> RDB_MAGIC = { 0x35, 0x33, 0x31, 0x45, 0x39, 0x38, 0x32, 0x30, 0x34, 0x46, 0x38, 0x35, 0x34, 0x32, 0x46, 0x30 };
-constexpr uint64_t RDB_MIN_SIZE = 0x20;
+constexpr uint64_t RDB_MIN_SIZE = 0x24; // header: 16 (magic) + 4 (file_num) + 8 (index_offset) + 8 (index_size)
 
 struct RdbFileEntry {
     std::u16string name;
