@@ -89,6 +89,7 @@ bool unpack(const fs::path& input, const fs::path& output_dir) {
 
     size_t p_index = static_cast<size_t>(index_offset);
     uint32_t extracted = 0;
+    uint32_t directories = 0;
     bool ok = true;
 
     for (uint32_t i = 0; i < file_num; i++) {
@@ -106,6 +107,12 @@ bool unpack(const fs::path& input, const fs::path& output_dir) {
         const uint64_t offset = read_u64(data.data() + p_index);
         const uint64_t size = read_u64(data.data() + p_index + 8);
         p_index += 16;
+
+        // size 0 marks a directory entry
+        if (size == 0) {
+            directories++;
+            continue;
+        }
 
         if (offset > data.size() || size > data.size() - offset) {
             std::cerr << "entry " << i << " points outside the file\n";
@@ -125,7 +132,11 @@ bool unpack(const fs::path& input, const fs::path& output_dir) {
         extracted++;
     }
 
-    std::cout << "unpacked " << extracted << " of " << file_num << " files to " << output_dir << "\n";
+    std::cout << "unpacked " << extracted << " of " << (file_num - directories) << " files to " << output_dir;
+    if (directories > 0) {
+        std::cout << " (" << directories << " directory entries skipped)";
+    }
+    std::cout << "\n";
     return ok;
 }
 
